@@ -14,6 +14,17 @@
 import json
 
 
+def filter_request_from_object_return_object(json_request):
+    try:
+        payload = json_request['payload']
+        matching_shows = filter(_is_matching_show, payload)
+        mapped_shows = map(_pick_fields, matching_shows)
+        response = {'response': mapped_shows}
+        return response
+    except (KeyError, TypeError, ValueError):
+        return build_error_object()
+
+
 def _is_matching_show(show):
     try:
         drm = bool(show['drm'])
@@ -27,18 +38,18 @@ def _pick_fields(show):
     return dict(image=show['image']['showImage'], slug=show['slug'], title=show['title'])
 
 
+def build_error_object():
+    return json.loads('{"error": "Could not decode request"}')
+
+
 def filter_request_from_string_return_object(json_string):
     try:
-        request = json.loads(json_string)
+        json_request = json.loads(json_string)
     except ValueError:
         # invalid JSON in the request
-        return json.loads('{"error": "Could not decode request"}')
+        return build_error_object()
     else:
-        payload = request['payload']
-        matching_shows = filter(_is_matching_show, payload)
-        mapped_shows = map(_pick_fields, matching_shows)
-        response = {'response': mapped_shows}
-        return response
+        return filter_request_from_object_return_object(json_request)
 
 
 def filter_request_from_string_return_string(json_string):
