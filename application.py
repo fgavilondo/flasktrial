@@ -1,10 +1,15 @@
 #!env/bin/python
+
+"""
+By default, AWS Elastic Beanstalk looks for your application (application.py) in top-level directory of your source bundle.
+"""
+
 from flask import Flask
 from flask import make_response
 from flask import abort
 from flask import jsonify
 from flask import request
-import json_filter as jf
+import jsonfilter.json_filter as jf
 
 app = Flask(__name__)
 
