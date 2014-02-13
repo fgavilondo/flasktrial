@@ -45,3 +45,7 @@ Pre-requisites:
 * Elastic Beanstalk command line tools. Get package from the AWS Sample Code & Libraries website (http://aws.amazon.com/code/6752709412171743)
 * Git 1.6.6 or later
 * Python 2.7 or 3.0
+
+Steps:
+
+http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_Python_flask.html
