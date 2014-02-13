@@ -23,7 +23,7 @@ flasktrial
 
 3. Launch the application
 
-    Mac/Linux: `application.py`
+    Mac/Linux: `env/bin/python application.py`
 
     Windows:   `env\Scripts\python application.py`
 

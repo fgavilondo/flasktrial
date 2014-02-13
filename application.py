@@ -1,5 +1,3 @@
-#!env/bin/python
-
 """
 By default, AWS Elastic Beanstalk looks for your application (application.py) in top-level directory of your source bundle.
 """
