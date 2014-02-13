@@ -1,7 +1,7 @@
 flasktrial
 ==========
 
-# Building the application 
+# Building and testing the application
 
 ## Pre-requisites
 
