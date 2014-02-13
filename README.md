@@ -50,6 +50,13 @@ Pre-requisites:
 * Git 1.6.6 or later
 * Python 2.7 or 3.0
 
-Steps:
+See http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_Python_flask.html
 
-http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_Python_flask.html
+But essentially: 
+
+* run 'eb init' once
+* run 'eb start' once
+* run 'eb status --verbose' and note down the URL
+* and from then on just run 'git aws.push' to update the app on AWS
+
+The application is available at http://[EB Environment Name].elasticbeanstalk.com/api/v1.0/jsonfilter
