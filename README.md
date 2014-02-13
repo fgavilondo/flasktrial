@@ -36,9 +36,13 @@ flasktrial
 
 2 options:
 
-## Using the Elastic Beanstalk web console: http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_python_console.html
+### Using the Elastic Beanstalk web console
 
-## Using Eb (the AWS Elastic Beanstalk Command Line Tool)
+Steps:
+
+http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_python_console.html
+
+### Using Eb (the AWS Elastic Beanstalk Command Line Tool)
 
 Pre-requisites:
 
