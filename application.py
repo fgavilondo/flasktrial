@@ -9,15 +9,16 @@ from flask import jsonify
 from flask import request
 import jsonfilter.json_filter as jf
 
-app = Flask(__name__)
+# By default, AWS Elastic Beanstalk expects the Flask instance to be called 'application'
+application = Flask(__name__)
 
 
-@app.route('/')
+@application.route('/')
 def index():
     return 'Nothing to see here.'
 
 
-@app.route('/api/v1.0/jsonfilter', methods=['POST'])
+@application.route('/api/v1.0/jsonfilter', methods=['POST'])
 def filter_json():
     if not request.json:
         abort(400)
@@ -28,7 +29,7 @@ def filter_json():
         return jsonify(response), 200
 
 
-@app.errorhandler(400)
+@application.errorhandler(400)
 def not_found(error):
     return make_response(jsonify({'error': 'Could not decode request'}), error)
 
@@ -36,4 +37,4 @@ def not_found(error):
 if __name__ == '__main__':
     # Set application.debug=true to enable tracebacks on Beanstalk log output.
     # Make sure to remove this line before deploying to production.
-    app.run(host='0.0.0.0', debug=True)
+    application.run(host='0.0.0.0', debug=True)

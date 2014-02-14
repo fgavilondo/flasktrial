@@ -56,12 +56,11 @@ But essentially:
 
 * run 'eb init' once
 * run 'eb start' once
-* run 'eb status --verbose' and note down the URL
-* and from then on just run 'git aws.push' to update the app on AWS
+* run 'eb status --verbose' and note down the URL (The application is available at http://[EB Environment Name].elasticbeanstalk.com/api/v1.0/jsonfilter)
+* from then on just 'git commit' your changes and run 'git aws.push' to update the app on AWS
+* run 'eb logs' for diagnosing problems
 
-The application is available at http://[EB Environment Name].elasticbeanstalk.com/api/v1.0/jsonfilter
-
-Then, eventually:
+Eventually:
 
 * 'eb stop'
 * 'eb delete'
