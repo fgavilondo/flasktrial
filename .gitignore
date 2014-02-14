@@ -1,5 +1,7 @@
 .idea/
 .elasticbeanstalk/
 env/
+logs.txt
 *.pyc
-
+
+
