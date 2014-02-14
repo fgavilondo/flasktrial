@@ -37,4 +37,6 @@ def not_found(error):
 if __name__ == '__main__':
     # Set application.debug=true to enable tracebacks on Beanstalk log output.
     # Make sure to remove this line before deploying to production.
+    # Even though the interactive debugger does not work in forking environments (which makes it nearly impossible to use on production servers), it still allows the execution of arbitrary code.
+    # This makes it a major security risk and therefore it must never be used on production machines.
     application.run(host='0.0.0.0', debug=False)
