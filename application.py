@@ -34,4 +34,6 @@ def not_found(error):
 
 
 if __name__ == '__main__':
+    # Set application.debug=true to enable tracebacks on Beanstalk log output.
+    # Make sure to remove this line before deploying to production.
     app.run(host='0.0.0.0', debug=True)

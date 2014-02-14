@@ -60,3 +60,8 @@ But essentially:
 * and from then on just run 'git aws.push' to update the app on AWS
 
 The application is available at http://[EB Environment Name].elasticbeanstalk.com/api/v1.0/jsonfilter
+
+Then, eventually:
+
+* 'eb stop'
+* 'eb delete'
