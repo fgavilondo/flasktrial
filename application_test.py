@@ -25,6 +25,7 @@ class ApplicationTestCase(unittest.TestCase):
         assert b'Could not decode request' in response.data
 
     def test_filter_correct_json(self):
+        # TODO fix this test, the request does not seem to be set up correctly
         json_string = self._read_json_file("./jsonfilter/tests/sample_request.json")
         response = self.client.post('/api/v1.0/jsonfilter',
                                     headers=[('Content-Type', 'application/json')],
