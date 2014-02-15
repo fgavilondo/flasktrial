@@ -14,9 +14,9 @@
 import json
 
 
-def filter_request_from_object_return_object(json_request):
+def filter_json_request(json_object):
     try:
-        payload = json_request['payload']
+        payload = json_object['payload']
         matching_shows = filter(_is_matching_show, payload)
         mapped_shows = map(_pick_fields, matching_shows)
         response = {'response': mapped_shows}
@@ -39,39 +39,14 @@ def _pick_fields(show):
 
 
 def build_error_object():
-    return json.loads('{"error": "Could not decode request"}')
+    return {"error": "Could not decode request"}
+    # return json.loads('{"error": "Could not decode request"}')
 
 
-def filter_request_from_string_return_object(json_string):
+def filter_string_request(json_string):
     try:
         json_request = json.loads(json_string)
+        return filter_json_request(json_request)
     except ValueError:
         # invalid JSON in the request
         return build_error_object()
-    else:
-        return filter_request_from_object_return_object(json_request)
-
-
-def filter_request_from_string_return_string(json_string):
-    json_object = filter_request_from_string_return_object(json_string)
-    return json.dumps(json_object)
-
-
-def filter_request_from_file_return_object(json_file_name):
-    with open(json_file_name, "r") as f:
-        json_string = f.read()
-        return filter_request_from_string_return_object(json_string)
-
-
-def filter_request_from_file_return_string(json_file_name):
-    with open(json_file_name, "r") as f:
-        json_string = f.read()
-        return filter_request_from_string_return_string(json_string)
-
-
-if __name__ == "__main__":
-    import sys
-
-    print filter_request_from_file_return_string(sys.argv[1])
-
-

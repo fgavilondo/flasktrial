@@ -22,7 +22,7 @@ def index():
 def filter_json():
     if not request.json:
         abort(400)
-    response = jf.filter_request_from_object_return_object(request.json)
+    response = jf.filter_json_request(request.json)
     if 'error' in response:
         return jsonify(response), 400
     else:
