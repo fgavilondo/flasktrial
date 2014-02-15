@@ -1,7 +1,9 @@
 .idea/
 .elasticbeanstalk/
 env/
-logs.txt
+.DS_Store
 *.pyc
-
-
+*.pyo
+*.egg
+*.egg-info
+logs.txt
