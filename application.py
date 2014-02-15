@@ -15,8 +15,7 @@ application = Flask(__name__)
 
 # Load default config and override config from an environment variable
 application.config.update(dict(
-    DEBUG=True,
-    SECRET_KEY='development key'
+    DEBUG=False
 ))
 application.config.from_envvar('APP_SETTINGS', silent=True)
 
