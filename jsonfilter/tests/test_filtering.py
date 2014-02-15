@@ -4,7 +4,7 @@ import json
 import jsonfilter.json_filter as jf
 
 
-class TestJsonFilter(unittest.TestCase):
+class FilteringTestCase(unittest.TestCase):
     def test_filter_valid_request(self):
         f = open("./sample_response.json")
         expected_response = json.load(f)
@@ -32,4 +32,6 @@ class TestJsonFilter(unittest.TestCase):
         self.assertEqual(jf.build_error_object(), result)
 
 
+if __name__ == '__main__':
+    unittest.main()
 

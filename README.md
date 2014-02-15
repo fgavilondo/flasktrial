@@ -29,7 +29,9 @@ flasktrial
 
 4. Test the application locally by POSTing some JSON to http://127.0.0.1:5000/api/v1.0/jsonfilter, e.g. with curl
 
-    `curl -i -H "Content-Type: application/json" -X POST -T jsonfilter/test/sample_request.json http://127.0.0.1:5000/api/v1.0/jsonfilter`
+    Good request: `curl -i -H "Content-Type: application/json" -X POST -T jsonfilter/tests/sample_request.json http://127.0.0.1:5000/api/v1.0/jsonfilter`
+
+    Bad request: `curl -i -H "Content-Type: application/json" -X POST -d "notjson" http://127.0.0.1:5000/api/v1.0/jsonfilter`
 
 
 # Deploying to AWS Elastic Beanstalk
