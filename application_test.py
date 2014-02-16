@@ -11,32 +11,28 @@ class ApplicationTestCase(unittest.TestCase):
     def test_index(self):
         response = self.client.get('/')
         self.assertEqual("200 OK", response.status)
-        assert b'Nothing to see here' in response.data
+        self.assertTrue("Nothing to see here" in response.data)
 
     def test_filter_invalid_json(self):
-        response = self.client.post('/api/v1.0/jsonfilter', data=dict(
-            json='aaa'))
+        response = self.client.post('/api/v1.0/jsonfilter', data='aaa')
         self.assertEqual("400 BAD REQUEST", response.status)
-        assert b'Could not decode request' in response.data
+        self.assertTrue("Could not decode request" in response.data)
 
-        response = self.client.post('/api/v1.0/jsonfilter', data=dict(
-            json='{}'))
+        response = self.client.post('/api/v1.0/jsonfilter', data='{}')
         self.assertEqual("400 BAD REQUEST", response.status)
-        assert b'Could not decode request' in response.data
+        self.assertTrue("Could not decode request" in response.data)
 
     def test_filter_correct_json(self):
-        # TODO fix this test, the request does not seem to be set up correctly
-        json_string = self._read_json_file("./jsonfilter/tests/sample_request.json")
+        json_string = self._read_file("./jsonfilter/tests/sample_request.json")
         response = self.client.post('/api/v1.0/jsonfilter',
                                     headers=[('Content-Type', 'application/json')],
-                                    data=dict(json=json_string))
+                                    data=json_string)
         self.assertEqual("200 OK", response.status)
-        assert b'response' in response.data
+        self.assertTrue("response" in response.data)
 
-    def _read_json_file(self, json_file_name):
+    def _read_file(self, json_file_name):
         with open(json_file_name, "r") as f:
-            json_string = f.read()
-            return json_string
+            return f.read()
 
 
 if __name__ == '__main__':
