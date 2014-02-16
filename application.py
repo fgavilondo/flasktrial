@@ -2,13 +2,15 @@
 By default, AWS Elastic Beanstalk looks for your application (application.py) in top-level directory of your source bundle.
 """
 
+import sys
+
 from flask import Flask
 from flask import make_response
 from flask import abort
 from flask import jsonify
 from flask import request
 import jsonfilter.json_filter as jf
-import sys
+
 
 # By default, AWS Elastic Beanstalk expects the Flask instance to be called 'application'
 application = Flask(__name__)
@@ -28,6 +30,7 @@ def index():
 @application.route('/api/v1.0/jsonfilter', methods=['POST'])
 def filter_json():
     request_json = None
+
     try:
         request_json = request.json
     except:
@@ -37,10 +40,10 @@ def filter_json():
     if not request_json:
         abort(400)
 
-    response = jf.filter_json_request(request_json)
-
-    if 'error' in response:
-        return jsonify(response), 400
+    try:
+        response = jf.filter_json_request(request_json)
+    except jf.BadJsonException:
+        abort(400)
     else:
         return jsonify(response), 200
 

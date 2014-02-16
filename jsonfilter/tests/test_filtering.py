@@ -28,8 +28,14 @@ class FilteringTestCase(unittest.TestCase):
         self._assert_error('{"payl": [{}]}')
 
     def _assert_error(self, json_string):
-        result = jf.filter_string_request(json_string)
-        self.assertEqual(jf.build_error_object(), result)
+        # this does not seem to work with chained exceptions
+        # self.assertRaises(jf.BadJsonException, jf.filter_string_request(json_string))
+        try:
+            jf.filter_string_request(json_string)
+        except jf.BadJsonException:
+            pass
+        else:
+            self.fail("Expected BadJsonException for " + json_string)
 
 
 if __name__ == '__main__':

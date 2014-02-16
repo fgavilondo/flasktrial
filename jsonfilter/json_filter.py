@@ -12,6 +12,7 @@
 
 """
 import json
+import sys
 
 
 def filter_json_request(json_object):
@@ -19,34 +20,38 @@ def filter_json_request(json_object):
         payload = json_object['payload']
         matching_shows = filter(_is_matching_show, payload)
         mapped_shows = map(_pick_fields, matching_shows)
-        response = {'response': mapped_shows}
-        return response
-    except (KeyError, TypeError, ValueError):
-        return build_error_object()
+    except (KeyError, TypeError, ValueError) as e:
+        raise BadJsonException(str(e)), None, sys.exc_info()[2]
+    else:
+        return {'response': mapped_shows}
 
 
 def _is_matching_show(show):
     try:
         drm = bool(show['drm'])
         episode_count = int(show['episodeCount'])
-        return drm and episode_count > 0
     except (KeyError, TypeError, ValueError):
         return False
+    else:
+        return drm and episode_count > 0
 
 
 def _pick_fields(show):
     return dict(image=show['image']['showImage'], slug=show['slug'], title=show['title'])
 
 
-def build_error_object():
-    return {"error": "Could not decode request"}
-    # return json.loads('{"error": "Could not decode request"}')
-
-
 def filter_string_request(json_string):
     try:
         json_request = json.loads(json_string)
+    except ValueError as e:
+        raise BadJsonException(str(e)), None, sys.exc_info()[2]
+    else:
         return filter_json_request(json_request)
-    except ValueError:
-        # invalid JSON in the request
-        return build_error_object()
+
+
+class BadJsonException(Exception):
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
