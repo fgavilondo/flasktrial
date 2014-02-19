@@ -17,23 +17,23 @@ import sys
 
 def filter_json_request(json_object):
     try:
-        payload = json_object['payload']
-        matching_shows = filter(_is_matching_show, payload)
-        mapped_shows = map(_pick_fields, matching_shows)
+        # matching_shows = filter(_is_matching_show, json_object['payload'])
+        # mapped_shows = map(_pick_fields, matching_shows)
+        # return {'response': mapped_shows}
+
+        # Or we can just use a list comprehension for map/filter
+        return {'response': [_pick_fields(show) for show in json_object['payload'] if _is_matching_show(show)] }
     except (KeyError, TypeError, ValueError) as e:
         raise BadJsonException(str(e)), None, sys.exc_info()[2]
-    else:
-        return {'response': mapped_shows}
 
 
 def _is_matching_show(show):
     try:
         drm = bool(show['drm'])
         episode_count = int(show['episodeCount'])
+        return drm and episode_count > 0
     except (KeyError, TypeError, ValueError):
         return False
-    else:
-        return drm and episode_count > 0
 
 
 def _pick_fields(show):
