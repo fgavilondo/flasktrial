@@ -15,19 +15,21 @@ flasktrial
 
     `virtualenv env`
 
+1a. Ensure you are in the virtualenv by using `source env/bin/activate` on unixes and `env\Scripts\activate.bat` on Windows.
+
 2. Install project dependencies
 
-    Mac/Linux: `env/bin/pip install -r requirements.txt`
-    
-    Windows:   `env\Scripts\pip install -r requirements.txt`
+    `pip install -r requirements.txt`
 
-3. Launch the application
+3. Run the tests
 
-    Mac/Linux: `env/bin/python application.py`
+    `nosetests -v`
 
-    Windows:   `env\Scripts\python application.py`
+4. Launch the application locally
 
-4. Test the application locally by POSTing some JSON to http://127.0.0.1:5000/api/v1.0/jsonfilter, e.g. with curl
+    `python application.py`
+
+5. Check the application locally by POSTing some JSON to http://127.0.0.1:5000/api/v1.0/jsonfilter, e.g. with curl
 
     Good request: `curl -i -H "Content-Type: application/json" -X POST -T jsonfilter/tests/sample_request.json http://127.0.0.1:5000/api/v1.0/jsonfilter`
 
