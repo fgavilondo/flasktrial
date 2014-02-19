@@ -9,6 +9,9 @@ class ApplicationTestCase(unittest.TestCase):
         self.client = application.application.test_client()
 
     def test_index(self):
+        """Should say 'Nothing to see here' on index page"""
+        # if we use docstrings in our tests nosetests will display them instead of the fixture/test case name.
+        # personally i don't find that very useful, i prefer to see the test names.
         response = self.client.get('/')
         self.assertEqual("200 OK", response.status)
         self.assertTrue("Nothing to see here" in response.data)

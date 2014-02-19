@@ -1,17 +1,21 @@
 import unittest
 import json
 
+import os
 import jsonfilter.json_filter as jf
+
+
+def absolute_file_path(relative_path):
+    return os.path.join(os.path.dirname(__file__), relative_path)
 
 
 class FilteringTestCase(unittest.TestCase):
     def test_filter_valid_request(self):
-        f = open("./sample_response.json")
-        expected_response = json.load(f)
-        f.close()
-        json_string = self._read_json_file("./sample_request.json")
-        actual_response = jf.filter_string_request(json_string)
-        self.assertEqual(expected_response, actual_response)
+        with open(absolute_file_path("sample_response.json")) as f:
+            expected_response = json.load(f)
+            json_string = self._read_json_file(absolute_file_path("sample_request.json"))
+            actual_response = jf.filter_string_request(json_string)
+            self.assertEqual(expected_response, actual_response)
 
     def _read_json_file(self, json_file_name):
         with open(json_file_name, "r") as f:
@@ -19,6 +23,9 @@ class FilteringTestCase(unittest.TestCase):
             return json_string
 
     def test_filter_invalid_json(self):
+        """Should error for an invalid request"""
+        # if we use docstrings in our tests nosetests will display them instead of the fixture/test case name.
+        # personally i don't find that very useful, i prefer to see the test names.
         self._assert_error('not json')
         self._assert_error('{}')
         self._assert_error('{"payload"}')
